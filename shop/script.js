@@ -11,15 +11,23 @@ const produtc = {
 
 function cart(event){
   let tag = event.target;
+  console.log(tag.id);
   let cart = localStorage.getItem("cart");
   cart = JSON.parse(cart);
   let data = localStorage.getItem("data");
   data=JSON.parse(data);
+  let id= document.cookie;
+ 
   if(cart==null){
-    cart=[];
+    cart={
+
+    };
   }
-  cart.push(data[tag.id]);
-  console.log(cart);
+  if(cart[id]==undefined){
+    cart[id]=[];
+  }
+  cart[id].push(data[tag.id-1]);
+ 
   localStorage.setItem("cart",JSON.stringify(cart));
 }
 function addColor(){
@@ -32,10 +40,11 @@ function addColor(){
     let num2 =  Math.floor(Math.random()*(4-0)+0);
     data[i].color=color[num];
     data[i].size=size[num2];
-    console.log(data[i].size);
+   
   }
-  console.log(data);
+ 
   localStorage.setItem("data",JSON.stringify(data));
+  loadData(data);
 }
 function loadData(data){
  
@@ -48,7 +57,7 @@ function loadData(data){
       let div = document.createElement("div");
       div.className="item";
       div.id= data[i].id;
-      div.innerHTML=` <img src=${data[i].image} alt="Item" />
+      div.innerHTML=`<img src=${data[i].image} alt="Item" />
       <div class="info">
         <div class="row">
           <div class="price">$ ${data[i].price}</div>
@@ -62,6 +71,7 @@ function loadData(data){
         </div>
         <div class="row">Rating: ${data[i].rating.rate}</div>
       </div>
+      
       `
       
       let btn  = document.createElement("button");
@@ -78,7 +88,6 @@ let  product = async function Dataload(){
   let Data = await response.json();
   localStorage.setItem("data",JSON.stringify(Data));
   addColor();
-  loadData(Data);
 }
 product();
 
@@ -152,7 +161,7 @@ function checkPrice(priceArr,filterData){
            
           }
         }
-        console.log(min,max,str);
+      
        
       }
     }
@@ -164,7 +173,7 @@ function checkPrice(priceArr,filterData){
 }
 
 function filter(){
-  console.log("filter");
+  
   let items = document.getElementById("azmat");
   items.innerHTML="";
   let data = localStorage.getItem("data");
@@ -185,5 +194,57 @@ function filter(){
 
   loadData(filterData);
 }
+function forGender(category){
+  let text = category.slice(0,3);
+ 
+  if(text.toUpperCase()=="MEN"){
+    return "MENS";
+  }
+  return "WOMENS";
+}
+function update(event){
+  let filtersDiv = document.querySelectorAll(".filters .filter");
+  for(let i=0;i<filtersDiv.length;i++){
+    let tagId = filtersDiv[i];
+    tagId.style.backgroundColor="white";
+    tagId.style.color="black";
+}
+  let tag = event.target;
+ let tagId = document.getElementById(tag.id);
+ tagId.style.backgroundColor="black";
+ tagId.style.color="white";
+
+
+  let items = document.getElementById("azmat");
+  items.innerHTML="";
+  let data = localStorage.getItem("data");
+  data = JSON.parse(data);
+  let filterData = [...data];
+  if(tag.innerText=="All"){
+    loadData(filterData);
+  }
+  else{
+    let arr =[];
+    let cat = tag.innerText.toUpperCase();
+    
+    for(let i=0;i<filterData.length;i++){
+      let category = filterData[i].category.toUpperCase();
+    
+      if(category.length>11){
+        category=forGender(category);
+
+      }
+      if(category.toUpperCase()==cat.toUpperCase()){
+        arr.push(filterData[i]);
+      }
+     
+    }
+   loadData(arr);
+  }
+}
 
 document.getElementById("applyfilter").addEventListener("click",filter);
+let filtersDiv = document.querySelectorAll(".filters .filter");
+for(let i=0;i<filtersDiv.length;i++){
+    filtersDiv[i].addEventListener("click",update);
+}

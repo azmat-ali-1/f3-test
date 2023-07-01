@@ -10,11 +10,10 @@
     <nav id="topBar">
         <div><h2>MeShop.</h2></div>
         <div id="left">
-         <a href="">Home</a>
-         <a href="./logInPage.html" >Login</a>
+         <a href="./index.html">Home</a>
          <a href="./signUp.html" >Signup</a>
-         <a href="">MyCart</a>
-         <a href="">Profile</a>
+         <a href="./cart/index.html">MyCart</a>
+         <a href="./profile/index.html">Profile</a>
         </div>
       </nav>
       <div id="container2">
@@ -27,6 +26,7 @@
       </div>
       <div id="status"></div>
       <script>
+        document.cookie=45454545;
         let user  = localStorage.getItem("user");
         document.getElementById("form").addEventListener("submit",(event)=>{
           event.preventDefault();
@@ -51,9 +51,10 @@
               if(email==Element.email&&password==Element.password){
                 localStorage.setItem("customer",Element.id);
                 let div = document.getElementById("status");
-            div.innerHTML=`<p>Wrong Password ...!</p>`
+            div.innerHTML=`<p>Successfull ...!</p>`
             div.style.color="green";
-            window.open("./profile/index.html");
+            document.cookie=Element.id;
+            window.open("./shop/index.html");
               }
             
               else if(email==Element.email){
