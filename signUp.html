@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="./styles.css">
+</head>
+<body>
+    <nav id="topBar">
+        <div><h2>MeShop.</h2></div>
+        <div id="left">
+         <a href="">Home</a>
+         <a href="./logInPage.html" >Login</a>
+         <a href="./signUp.html" >Signup</a>
+         <a href="">MyCart</a>
+         <a href="">Profile</a>
+        </div>
+      </nav>
+      <div id="container2">
+        <form id="form">
+            <h2>Signup</h2>
+            <input type="text" placeholder="First Name" required>
+            <input type="text" placeholder="Last Name" required>
+            <input type="email" placeholder="Email" required>
+            <input type="password" placeholder="Password" required>
+            <input type="password" placeholder="Confirm Password" required>
+            <button type="submit">Login</button>
+        </form>
+        <div id = "status"></div>
+      </div>
+      <script>
+        let user  = localStorage.getItem("user");
+        user  = JSON.parse(user);
+        document.getElementById("form").addEventListener("submit",(event)=>{
+          event.preventDefault();
+          const form = document.querySelectorAll("form input");
+          console.log(form[3].value,form[4].value);
+          if (form[3].value!=form[4].value) {
+            let div = document.getElementById("status");
+            div.innerHTML=`<p>Password not equal ...!</p>`
+            div.style.color="red";
+          }
+          else{
+            let obj = {
+
+            }
+            obj.firstName = form[0].value;
+            obj.lastName = form[1].value;
+            obj.email = form[2].value;
+            obj.password = form[3].value;
+            if(user==null){
+              obj.id=1;
+              user=[];
+            }
+            else{
+              obj.id = user.length+1;
+            }
+            user.push(obj);
+            localStorage.setItem("user",JSON.stringify(user));
+          }
+        });
+      </script>
+</body>
+</html>

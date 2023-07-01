@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>My Cart</title>
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <nav>
+      <div class="brand">
+        <a href="/">MeShop.</a>
+      </div>
+      <div class="nav-items">
+        <a href="/">Home</a>
+        <a href="/login">Login</a>
+        <a href="/signup">Signup</a>
+        <a href="/cart">My Cart</a>
+      </div>
+    </nav>
+
+   <div class="container">
+    <section>
+      <title id = "title">My Cart</title>
+      <div class="items" id="azmat">
+        <div class="item">
+          <img src="" alt="Item" />
+          <div class="info">
+            <div class="row">
+              <div class="price">$100</div>
+              <div class="sized">S,M,L</div>
+            </div>
+            <div class="colors">
+              Colors:
+              <div class="row">
+                <div class="circle" style="background-color: #000"></div>
+                <div class="circle" style="background-color: #4938af"></div>
+                <div class="circle" style="background-color: #203d3e"></div>
+              </div>
+            </div>
+            <div class="row">Rating:</div>
+          </div>
+          <button id="addBtn">Add to Cart</button>
+        </div>
+      </div>
+    </section>
+    <aside class="totalSection">
+      <div id = "list">
+        <h3 style="text-align: center;">CheckOut List</h3>
+      </div>
+      <div id="total">
+        
+      </div>
+      <button id="CheckOut">
+        Click to CheckOut
+      </button>
+    </aside>
+   </div>
+    <!-- <script src="https://checkout.razorpay.com/v1/checkout.js"></script> -->
+  </body>
+</html>
